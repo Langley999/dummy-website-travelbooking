@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        form div {
+            margin-bottom: 15px;
+        }
+        form input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .listings {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+        .listing {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background: #fff;
+        }
+        #cookie-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+        #cookie-popup button {
+            margin-right: 10px;
+        }
+        #cookie-popup .close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Expasia</h1>
+    </header>
+
+    <form>
+        <div>
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" placeholder="Enter destination">
+        </div>
+        <div>
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" name="start-date">
+        </div>
+        <div>
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date" name="end-date">
+        </div>
+        <div>
+            <label for="travelers">Number of Travelers:</label>
+            <input type="number" id="travelers" name="travelers" min="1" placeholder="Enter number of travelers">
+        </div>
+        <button type="submit">Search</button>
+    </form>
+
+    <section class="listings">
+        <div class="listing">
+            <h3>Hotel Paradise</h3>
+            <p>Beautiful hotel with amazing views. $200 per night.</p>
+        </div>
+        <div class="listing">
+            <h3>Sunny Resort</h3>
+            <p>Family-friendly resort with great amenities. $250 per night.</p>
+        </div>
+        <div class="listing">
+            <h3>Mountain Escape</h3>
+            <p>Cozy cabins nestled in the mountains. $180 per night.</p>
+        </div>
+    </section>
+
+    <div id="cookie-popup">
+        <span class="close" onclick="closeCookiePopup()">×</span>
+        <p>We use cookies to enhance your browsing experience, serve personalised ads or content, and analyse our traffic. By clicking "Accept All", you consent to our use of cookies.</p>
+        <button onclick="acceptCookies()">Accept All</button>
+        <button onclick="rejectCookies()">Reject All</button>
+    </div>
+
+    <script>
+        // Date Range Validation
+        const startDate = document.getElementById("start-date");
+        const endDate = document.getElementById("end-date");
+
+        startDate.addEventListener("change", () => {
+            if (endDate.value && startDate.value > endDate.value) {
+                alert("Start date cannot be after end date.");
+                startDate.value = "";
+            }
+        });
+
+        endDate.addEventListener("change", () => {
+            if (startDate.value && endDate.value < startDate.value) {
+                alert("End date cannot be before start date.");
+                endDate.value = "";
+            }
+        });
+
+        // Show cookie popup when the page loads
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("cookie-popup").style.display = "block";
+        });
+
+        function closeCookiePopup() {
+            document.getElementById("cookie-popup").style.display = "none";
+        }
+
+        function acceptCookies() {
+            document.cookie = "CookieBy=TravelBooking; max-age=31536000";
+            if (document.cookie.includes("CookieBy=TravelBooking")) {
+                closeCookiePopup();
+            } else {
+                alert("Failed to accept cookies. Please unblock cookies in your browser settings.");
+            }
+        }
+
+        function rejectCookies() {
+            closeCookiePopup();
+        }
+    </script>
+</body>
+</html>
